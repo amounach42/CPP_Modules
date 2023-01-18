@@ -1,18 +1,33 @@
-#ifndef CONTACT_HPP
-#define CONTACT_HH
+#include "Contact.hpp"
 
-#include <iostream>
-#include "PhoneBook.hpp"
+Contact::Contact()
+{
+    firstName = "";
+    lastName = "";
+    nickName = "";
+    phoneNumber = "";
+    darkestSecret = "";
+}
 
-void    fill_contact(str message, str attr)
+void Contact::fill(std::string message, std::string &attr)
 {
     while (attr.empty())
     {
         print << message;
-        std:: getline(std::cin, attr);
-        if (std::cin.good())
-            return ;
+        if (!std::getline(std::cin, attr).good())
+            exit(1);
     }
 }
 
-#endif
+bool Contact::empty() const
+{
+    if (firstName.empty() || lastName.empty() || nickName.empty() || phoneNumber.empty() || darkestSecret.empty())
+        return (true);
+    return (false);
+}
+
+void Contact::display(int idx)
+{
+    if (!empty())
+        print << "|" << std::setw(10) << idx << "|" << std::setw(10) << lastName << "|" << std::setw(10) << nickName << "|" << std::endl;
+}
