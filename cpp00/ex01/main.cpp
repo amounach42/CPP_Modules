@@ -1,14 +1,18 @@
 #include "PhoneBook.hpp"
+#include "Contact.hpp"
 
-int main(int ac, char **av)
+int main()
 {
-    if (ac == 2)
-    {
-        if (av[1] == "ADD")
-            ADD();
-        else if (av[1] == "SEARCH")
-            SEARCH();
-        else if (av[1] == "EXIT")
-            EXIT();
+    PhoneBook myPhoneBook;
+    std::string command;
+    while (command != "EXIT") {
+        std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+        std::cin >> command;
+        if (command == "ADD") {
+            myPhoneBook.ADD();
+        } else if (command == "SEARCH") {
+            myPhoneBook.SEARCH();
+        }
     }
+    return 0;
 }
