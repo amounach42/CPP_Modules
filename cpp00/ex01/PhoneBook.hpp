@@ -2,13 +2,15 @@
 
 #include <iostream>
 #include "Contact.hpp"
+#include <iomanip>
 
-class PhoneBook{
-    public:
-    Contact contacts[8] = {Contact(), Contact(), Contact(), Contact(), Contact(), Contact(), Contact(), Contact()};
-    void ADD();
-    void SEARCH();
-    void EXIT();
+class PhoneBook
+{
+public:
+    int index;
+    Contact contacts[8];
+    void add();
+    void search();
+
+    PhoneBook();
 };
-void    fill_contact(str message, str attr);
-
