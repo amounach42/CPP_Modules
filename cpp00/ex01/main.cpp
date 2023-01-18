@@ -3,16 +3,20 @@
 
 int main()
 {
-    PhoneBook myPhoneBook;
+    PhoneBook phonebook;
     std::string command;
-    while (command != "EXIT") {
+    while (command != "EXIT")
+    {
         std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-        std::cin >> command;
-        if (command == "ADD") {
-            myPhoneBook.ADD();
-        } else if (command == "SEARCH") {
-            myPhoneBook.SEARCH();
+        if (!std::getline(std::cin, command).good())
+        {
+            std::cerr << "Error: bad input" << std::endl;
+            return 1;
         }
+        if (command == "ADD")
+            phonebook.add();
+        else if (command == "SEARCH")
+            phonebook.search();
     }
     return 0;
 }
