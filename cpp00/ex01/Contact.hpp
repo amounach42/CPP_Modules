@@ -1,10 +1,14 @@
+#pragma once
+
 #include <iostream>
+#include <iomanip>
+#include <string>
 
 #define print std::cout
 #define str std::string
 
 class Contact {
-	private:
+	public:
 	str firstName;
 	str lastName;
 	str nickName;
@@ -13,6 +17,7 @@ class Contact {
 
 	public:
 		Contact(); // Default constuctor
-		Contact(str firsName, str lastName, str nickName, str phoneNumber, str darkestSecret);
-
+		bool empty() const;
+		void fill(std::string message, std::string &attr);
+		void display(int idx);
 };
