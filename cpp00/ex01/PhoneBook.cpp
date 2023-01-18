@@ -1,20 +1,32 @@
-#include  "PhoneBook.hpp"
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 
-void PhoneBook::ADD(void)
+void PhoneBook::add(void)
 {
-	Contact  newContact;
+	Contact newContact;
 
-	fill_contact("Enter first name", newContact.firstName);
-	fill_contact("Enter last name", newContact.lastName);
-	fill_contact("Enter nick name", newContact.nickName);
-	fill_contact("Enter phone number", newContact.phoneNumber);
-	fill_contact("Enter darkest secret", newContact.darkestSecret);
+	newContact.fill("Enter first name: ", newContact.firstName);
+	newContact.fill("Enter last name: ", newContact.lastName);
+	newContact.fill("Enter nick name: ", newContact.nickName);
+	newContact.fill("Enter phone number: ", newContact.phoneNumber);
+	newContact.fill("Enter darkest secret: ", newContact.darkestSecret);
 
-	for (int i = 0; i < 8; i++)
+	this->contacts[index++ % 8] = newContact;
+}
+
+void PhoneBook::search(void)
+{
+	if (index > 0)
 	{
-		if(contacts[i].firstName.empty())
-			contacts[i] = newContact;
-		break ;
+		print << "|" << std::setw(10) << "Index"
+			  << "|" << std::setw(10) << "FirstName"
+			  << "|" << std::setw(10) << "NickName"
+			  << "|" << std::endl;
+		for (int idx = 0; idx < 8; idx++)
+			this->contacts[idx].display(idx);
 	}
+}
+
+PhoneBook::PhoneBook()
+{
+	this->index = 0;
 }
