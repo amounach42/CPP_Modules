@@ -6,11 +6,13 @@
 
 class PhoneBook
 {
-public:
-    int index;
+private:
     Contact contacts[8];
+    int index;
+
+public:
     void add();
     void search();
-
     PhoneBook();
+    void get_info(int);
 };
