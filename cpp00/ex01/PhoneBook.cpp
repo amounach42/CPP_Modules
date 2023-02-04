@@ -61,7 +61,7 @@ void PhoneBook::search(void)
 		}
 		else
 		{
-			if (is_valid_index(idx))
+			if (is_valid_index(idx) && !(PhoneBook::contacts[atoi(idx.c_str())].getFirstName().empty()))
 				get_info(atoi(idx.c_str()));
 		}
 	}
