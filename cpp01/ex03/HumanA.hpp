@@ -5,9 +5,11 @@ class HumanA
 {
 private:
     std::string name;
-    Weapon weapon;
+    Weapon &weapon;
+
 public:
-    HumanA();
+    HumanA(std::string, Weapon&);
     std::string getName() const;
     void setName(std::string);
+    void attack();
 };
