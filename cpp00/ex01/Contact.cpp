@@ -1,5 +1,26 @@
 #include "Contact.hpp"
 
+Contact::Contact()
+{
+    firstName = "";
+    lastName = "";
+    nickName = "";
+    phoneNumber = "";
+    darkestSecret = "";
+}
+
+Contact::Contact(std::string firstName, std::string lastName,
+                 std::string nickName, std::string phoneNumber, std::string darkestSecret)
+{
+    this->firstName = firstName;
+    this->lastName = lastName;
+    this->nickName = nickName;
+    this->phoneNumber = phoneNumber;
+    this->darkestSecret = darkestSecret;
+}
+
+// Contact::~Contact()
+
 std::string Contact::getFirstName() const
 {
     return this->firstName;
@@ -50,32 +71,22 @@ void Contact::setDarkestSecret(std::string darkestSecret)
     this->darkestSecret = darkestSecret;
 }
 
-Contact::Contact()
-{
-    firstName = "";
-    lastName = "";
-    nickName = "";
-    phoneNumber = "";
-    darkestSecret = "";
-}
-
-Contact::Contact(std::string firstName, std::string lastName,
-                 std::string nickName, std::string phoneNumber, std::string darkestSecret)
-{
-    this->firstName = firstName;
-    this->lastName = lastName;
-    this->nickName = nickName;
-    this->phoneNumber = phoneNumber;
-    this->darkestSecret = darkestSecret;
-}
 
 void Contact::fill(std::string message, std::string &attr)
 {
-    while (attr.empty())
+    int attempts = 0;
+
+    while ((attr.empty() || (std::string::npos == attr.find_first_not_of(' '))) && attempts < 3)
     {
         std::cout << message;
         if (!std::getline(std::cin, attr).good())
             exit(1);
+        attempts++;
+    }
+    if (attempts == 3)
+    {
+        std::cout << "You have reached the maximum number of attempts." << std::endl;
+        fill(message, attr);
     }
 }
 
