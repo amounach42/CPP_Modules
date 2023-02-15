@@ -3,9 +3,10 @@
 class ClapTrap{
     private:
         std::string Name;
-        int HitPoint;
-        int EnergyPoint;
-        int AttackDamage;
+        unsigned int HitPoint;
+        unsigned int EnergyPoint;
+        unsigned int AttackDamage;
+
     public:
         /*Constructers*/
         ClapTrap();
