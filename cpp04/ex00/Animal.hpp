@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:49:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 23:50:52 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:55:41 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Animal
         Animal(std::string type);
         std::string getType();
         void setType(std::string);
-
+        virtual void makeSound();
 };
 
 #endif

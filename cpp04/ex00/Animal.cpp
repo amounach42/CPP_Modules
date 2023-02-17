@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:22 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 23:52:06 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:56:36 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,9 @@ Animal &Animal::operator=(const Animal &obj)
 Animal::Animal(std::string type)
 {
     this->Type = type;
+}
+
+void Animal::makeSound()
+{
+    std::cout << "Default sound!" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:33 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 22:57:28 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:59:44 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,9 @@ Dog::Dog(std::string type)
 {
     std::cout << "Dog constructer with param called" << std::endl;
     this->Type = type;
+}
+
+void Dog::makeSound()
+{
+    std::cout << "Zakaria make sound!" << std::endl; 
 }

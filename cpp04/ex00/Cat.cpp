@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:27 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 22:57:18 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:58:42 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,9 @@ Cat::Cat(std::string type)
 {
     std::cout << "Cat constructer with param called" << std::endl;
     this->Type = type;
+}
+
+void Cat::makeSound()
+{
+    std::cout << "Cat make sound" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:30 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 22:17:16 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:58:03 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Cat : public Animal
         Cat(const Cat &obj);
         Cat &operator = (const Cat &obj);
         Cat(std::string type);
+        void makeSound();
 };
 
 #endif

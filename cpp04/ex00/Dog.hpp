@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:35 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 22:13:34 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:59:06 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ class Dog : public Animal
         Dog(const Dog &obj);
         Dog &operator = (const Dog &obj);
         Dog(std::string type);
+        void makeSound();
 };
 #endif
