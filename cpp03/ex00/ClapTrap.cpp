@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:36:27 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 23:12:36 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 20:04:56 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ ClapTrap::ClapTrap(std::string name)
     this->AttackDamage = 0;
 }
 
-std::string ClapTrap::getName()
+std::string ClapTrap::getName() const
 {
     return (this->Name);
 }
 
-int ClapTrap::getHitPoint()
+int ClapTrap::getHitPoint() const
 {
     return (this->HitPoint);
 }
 
-int ClapTrap::getEnergyPoint()
+int ClapTrap::getEnergyPoint() const
 {
     return (this->EnergyPoint);
 }
 
-int ClapTrap::getAttackDamage()
+int ClapTrap::getAttackDamage() const
 {
     return (this->AttackDamage);
 }
@@ -109,13 +109,16 @@ void ClapTrap::attack(const std::string &target)
 void ClapTrap::takeDamage(unsigned int amount)
 {
     if (HitPoint == 0)
-        std::cout << "Target can't take damage" << std::endl;
+        std::cout << "Target already dead!" << std::endl;
     else
     {
         std::cout << Name << " toke " << amount << " damage." << std::endl;
         int p = HitPoint -= amount;
         if (p <= 0)
-            std::cout << "Target died" << std::endl;
+        {
+            std::cout <<  RED << "Target died" << RESET << std::endl;
+            HitPoint = 0;
+        }
         else
             std::cout << Name << " lose from hit points " << amount << std::endl;
     }
@@ -123,7 +126,12 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    HitPoint += amount;
-    std::cout << "Get repaired by " << amount << std::endl;
-    EnergyPoint--;
+    if (HitPoint == 0 || EnergyPoint == 0)
+        std::cout << RED << "can't be repaired!" << RESET << std::endl;
+    else
+    {
+        HitPoint += amount;
+        std::cout << "Get repaired by " << amount << std::endl;
+        EnergyPoint--;
+    }
 }

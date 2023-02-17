@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:34:16 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 23:23:53 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/17 20:05:18 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ public:
     ClapTrap(std::string Name);
     ClapTrap(std::string, int, int, int);
     /*getters*/
-    std::string getName();
-    int getHitPoint();
-    int getEnergyPoint();
-    int getAttackDamage();
+    std::string getName() const;
+    int getHitPoint() const;
+    int getEnergyPoint() const;
+    int getAttackDamage() const;
     /*Setters*/
     void setName(std::string name);
     void setHitPoint(int hitpoint);
