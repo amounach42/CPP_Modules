@@ -6,11 +6,54 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:36:27 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 23:20:05 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:12:36 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+
+ClapTrap::ClapTrap()
+{
+    std::cout << GREEN << "Clap Trap Default constructer called" << RESET << std::endl;
+    this->Name = "Target";
+    this->HitPoint = 10;
+    this->EnergyPoint = 10;
+    this->AttackDamage = 0;
+}
+
+ClapTrap::~ClapTrap()
+{
+    std::cout << GREEN << "Clap Trap Destructer called!" << RESET << std::endl;
+}
+
+/*Copy constructer*/
+ClapTrap::ClapTrap(const ClapTrap &obj)
+{
+    std::cout << "Copy constructer called" << std::endl;
+    *this = obj;
+}
+/*Copy assingement operature*/
+ClapTrap &ClapTrap::operator=(const ClapTrap &obj)
+{
+    std::cout << "Copy assignement operator called from clap trap" << std::endl;
+    if (this != &obj)
+    {
+        this->Name = obj.Name;
+        this->HitPoint = obj.HitPoint;
+        this->EnergyPoint = obj.EnergyPoint;
+        this->AttackDamage = obj.AttackDamage;
+    }
+    return (*this);
+}
+
+ClapTrap::ClapTrap(std::string name)
+{
+    std::cout << GREEN << "Clap Trap constructer with param called" << RESET << std::endl;
+    this->Name = name;
+    this->HitPoint = 10;
+    this->EnergyPoint = 10;
+    this->AttackDamage = 0;
+}
 
 std::string ClapTrap::getName()
 {
@@ -51,59 +94,6 @@ void ClapTrap::setAttackDamage(int attackDamage)
 {
     this->AttackDamage = attackDamage;
 }
-
-ClapTrap::ClapTrap()
-{
-    std::cout << GREEN << "Clap Trap Default constructer called" << RESET << std::endl;
-    this->Name = "Target";
-    this->HitPoint = 100;
-    this->EnergyPoint = 50;
-    this->AttackDamage = 20;
-}
-
-ClapTrap::~ClapTrap()
-{
-    std::cout << GREEN << "Clap Trap Destructer called!" << RESET << std::endl;
-}
-
-/*Copy constructer*/
-ClapTrap::ClapTrap(const ClapTrap &obj)
-{
-    std::cout << "Copy constructer called" << std::endl;
-    *this = obj;
-}
-/*Copy assingement operature*/
-ClapTrap &ClapTrap::operator=(const ClapTrap &obj)
-{
-    std::cout << "Copy assignement operator called from clap trap" << std::endl;
-    if (this != &obj)
-    {
-        this->Name = obj.Name;
-        this->HitPoint = obj.HitPoint;
-        this->EnergyPoint = obj.EnergyPoint;
-        this->AttackDamage = obj.AttackDamage;
-    }
-    return (*this);
-}
-
-ClapTrap::ClapTrap(std::string name, int hitpoint, int energy, int damage)
-{
-    std::cout << "constructer with params called" << std::endl;
-    this->Name = name;
-    this->HitPoint = hitpoint;
-    this->EnergyPoint = energy;
-    this->AttackDamage = damage;
-}
-
-ClapTrap::ClapTrap(std::string name)
-{
-    std::cout << GREEN << "Clap Trap constructer with param called" << RESET << std::endl;
-    this->Name = name;
-    this->HitPoint = 100;
-    this->EnergyPoint = 50;
-    this->AttackDamage = 20;
-}
-
 
 void ClapTrap::attack(const std::string &target)
 {

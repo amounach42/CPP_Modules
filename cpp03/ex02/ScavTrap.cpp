@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:35:29 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 23:22:28 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:23:03 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &obj)
 
 ScavTrap::ScavTrap(std::string name)
 {
-    std::cout << GREEN << "Scav Trap constructer with param called" << RESET << std::endl;
+    std::cout << GREEN << "Clap Trap constructer with param called" << RESET << std::endl;
     this->Name = name;
     this->HitPoint = 100;
     this->EnergyPoint = 50;
@@ -51,12 +51,9 @@ ScavTrap::ScavTrap(std::string name)
 void ScavTrap::attack(const std::string &target)
 {
     if (HitPoint == 0 || EnergyPoint == 0)
-        std::cout << "ScavTrap has no energy left" << std::endl;
-    else
-    {
-        std::cout << "ScavTrap " << Name << " attacks " << target << " , causing " << AttackDamage << " points of damage!" << std::endl;
-        EnergyPoint--;
-    }
+        std::cout << "ScavTrap can't do anything he has no energy of hit point left" << std::endl;
+    std::cout << "ScavTrap " << Name << " attacks " << target << " , causing " << AttackDamage << " points of damage!" << std::endl;
+    EnergyPoint--;
 }
 
 void ScavTrap::guardGate()

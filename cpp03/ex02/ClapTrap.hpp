@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 22:36:35 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 22:44:19 by amounach         ###   ########.fr       */
+/*   Created: 2023/02/15 22:34:16 by amounach          #+#    #+#             */
+/*   Updated: 2023/02/16 23:23:53 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define RED "\033[1;31m"
 #define RESET "\033[0m"
 #define GREEN "\033[32m"
+
 class ClapTrap
 {
 protected:
@@ -29,10 +30,10 @@ public:
     /*Constructers*/
     ClapTrap();
     ~ClapTrap();
-    ClapTrap(std::string Name);
-    ClapTrap(std::string name, int hitpoint, int energy, int damage);
     ClapTrap(const ClapTrap &obj);
     ClapTrap &operator=(const ClapTrap &obj);
+    ClapTrap(std::string Name);
+    ClapTrap(std::string, int, int, int);
     /*getters*/
     std::string getName();
     int getHitPoint();

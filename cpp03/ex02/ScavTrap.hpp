@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:32:21 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/16 23:23:23 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:25:32 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 #include <iostream>
 #include "ClapTrap.hpp"
-#define RED "\033[1;31m"
-#define RESET "\033[0m"
-#define GREEN "\033[32m"
 
 class ScavTrap : public ClapTrap
 {
@@ -28,6 +25,7 @@ public:
     ScavTrap &operator=(const ScavTrap &obj);
     ScavTrap(std::string);
     void attack(const std::string &target);
+    
     void guardGate();
 };
 

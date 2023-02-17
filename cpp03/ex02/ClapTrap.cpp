@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/15 22:35:21 by amounach          #+#    #+#             */
+/*   Updated: 2023/02/16 20:42:40 by amounach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap() 
 {
-    std::cout << "Default constructer called" << std::endl;
+    std::cout << "ClapTrap Default constructer called" << std::endl;
     this->Name = "Target";
     this->HitPoint = 10;
     this->EnergyPoint = 10;
@@ -13,14 +25,37 @@ ClapTrap::~ClapTrap()
 {
     std::cout << "Destructer called!" << std::endl;
 }
-
+/*Copy constructer*/
+ClapTrap::ClapTrap(const ClapTrap &obj)
+{
+    *this = obj;
+}
+/*Copy assingement operature*/
+ClapTrap &ClapTrap::operator=(const ClapTrap &obj)
+{
+    if (this != &obj)
+    {
+        this->Name = obj.Name;
+        this->HitPoint = obj.HitPoint;
+        this->EnergyPoint = obj.EnergyPoint;
+        this->AttackDamage = obj.AttackDamage;
+    }
+    return (*this);
+}
 ClapTrap::ClapTrap(std::string name)
 {
     this->Name = name;
     this->HitPoint = 10;
     this->EnergyPoint = 10;
     this->AttackDamage = 0;
+}
 
+ClapTrap::ClapTrap(std::string name, int hitpoint, int energy, int damage)
+{
+    this->Name = name;
+    this->HitPoint = hitpoint;
+    this->EnergyPoint = energy;
+    this->AttackDamage = damage;
 }
 
 std::string ClapTrap::getName()
