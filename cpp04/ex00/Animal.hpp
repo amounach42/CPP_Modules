@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:49:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 23:55:41 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:10:13 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ class Animal
         std::string Type;
     public:
         Animal();
-        ~Animal();
+        virtual ~Animal();
         Animal(const Animal &obj);
         Animal &operator = (const Animal &obj);
         Animal(std::string type);
-        std::string getType();
+        std::string getType() const ;
         void setType(std::string);
-        virtual void makeSound();
+        virtual void makeSound() const;
 };
 
 #endif

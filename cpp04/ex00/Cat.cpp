@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:27 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 23:58:42 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:39:58 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ Cat::Cat(std::string type)
     this->Type = type;
 }
 
-void Cat::makeSound()
+void Cat::makeSound() const
 {
     std::cout << "Cat make sound" << std::endl;
 }

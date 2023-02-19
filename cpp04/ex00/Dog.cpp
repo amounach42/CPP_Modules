@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:52:33 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/17 23:59:44 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:40:12 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ Dog &Dog::operator=(const Dog &obj)
 {
     std::cout << "Dog copy assignment operator called" << std::endl;
     this->Type = obj.Type;
+    return (*this);
 }
 
 Dog::Dog(std::string type)
@@ -51,7 +52,7 @@ Dog::Dog(std::string type)
     this->Type = type;
 }
 
-void Dog::makeSound()
+void Dog::makeSound() const
 {
-    std::cout << "Zakaria make sound!" << std::endl; 
+    std::cout << "naizame make sound!" << std::endl; 
 }
