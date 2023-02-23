@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:38:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/23 23:45:22 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:37:50 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ std::string Bureaucrat::getName()
     return (this->Name);
 }
 
-std::string Bureaucrat::getGrade()
+unsigned int Bureaucrat::getGrade()
 {
     return Grade;
 }
@@ -74,4 +74,14 @@ void Bureaucrat::increment(unsigned int grade)
 void Bureaucrat::decrement(unsigned int grade)
 {
     grade--;
+}
+
+const char *Bureaucrat::GradeTooHighExeption::what() const throw()
+{
+    return "Grade is too high!";
+}
+
+const char *Bureaucrat::GradeTooLowExeption::what() const throw()
+{
+    return "Grade is too looow!";
 }

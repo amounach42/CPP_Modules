@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:32:34 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/23 23:06:13 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:39:03 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,16 @@ public:
     Bureaucrat(const std::string);
     class GradeTooHighExeption : public std::exception
     {
-        public:
-            const char* what() const noexcept override
-            {
-                return "Grade is too high!";
-            }
-            
-    }
+    public:
+        const char *what() const throw();
+    };
     class GradeTooLowExeption : public std::exception
     {
-        public:
-            const char* what() const noexcept override
-            {
-                return "Grade is too low!";
-            }
-    }
+    public:
+        const char *what() const throw();
+    };
     std::string getName();
-    void setName(std::string);
-    std::string getGrade();
+    unsigned int getGrade();
     void setGrade(unsigned int);
     void increment(unsigned int);
     void decrement(unsigned int);
