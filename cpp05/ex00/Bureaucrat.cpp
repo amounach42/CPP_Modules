@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:38:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/24 00:37:50 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:31:02 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ std::string Bureaucrat::getName()
     return (this->Name);
 }
 
-unsigned int Bureaucrat::getGrade()
+unsigned int Bureaucrat::getGrade() const
 {
     return Grade;
 }
@@ -34,6 +34,18 @@ void Bureaucrat::setGrade(unsigned int grade)
 
 Bureaucrat::Bureaucrat(const std::string name) : Name(name)
 {
+}
+
+Bureaucrat::Bureaucrat(const std::string name, unsigned int grade) : Name(name)
+{
+    std::cout << "constructer with param" << std::endl;
+
+    if (grade > 150)
+        throw GradeTooLowExeption();
+    else if (grade < 0)
+        throw GradeTooHighExeption();
+    else
+        this->Grade = grade;
 }
 
 Bureaucrat::Bureaucrat()
@@ -57,23 +69,21 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj)
     return (*this);
 }
 
-void Bureaucrat::increment(unsigned int grade)
+void Bureaucrat::incrementGrade()
 {
-    try
-    {
-        grade++;
-        if (grade > 150)
-            throw GradeTooHighExeption();
-    }
-    catch (std::exception &e)
-    {
-        e.what();
-    }
+
+    if (Grade <= 1)
+        throw GradeTooHighExeption();
+    else
+        this->Grade--;
 }
 
-void Bureaucrat::decrement(unsigned int grade)
+void Bureaucrat::decrementGrade()
 {
-    grade--;
+    if (Grade >= 150)
+        throw GradeTooLowExeption();
+    else
+        this->Grade++;
 }
 
 const char *Bureaucrat::GradeTooHighExeption::what() const throw()
