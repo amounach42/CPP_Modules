@@ -6,13 +6,13 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:38:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/25 20:31:02 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/25 22:49:09 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-std::string Bureaucrat::getName()
+std::string Bureaucrat::getName() const
 {
     return (this->Name);
 }
@@ -88,10 +88,16 @@ void Bureaucrat::decrementGrade()
 
 const char *Bureaucrat::GradeTooHighExeption::what() const throw()
 {
-    return "Grade is too high!";
+    return "Exception: Grade is too high!";
 }
 
 const char *Bureaucrat::GradeTooLowExeption::what() const throw()
 {
-    return "Grade is too looow!";
+    return "Exception: Grade is too low!";
+}
+
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &obj)
+{
+    out << obj.getName() << " ,bureaucrat grade " << obj.getGrade()  << std::endl;
+    return (out);
 }

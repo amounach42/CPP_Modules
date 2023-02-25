@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:32:34 by amounach          #+#    #+#             */
-/*   Updated: 2023/02/25 20:31:02 by amounach         ###   ########.fr       */
+/*   Updated: 2023/02/25 22:17:28 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ public:
     public:
         const char *what() const throw();
     };
-    std::string getName();
-    unsigned int getGrade() const ;
+    std::string getName() const;
+    unsigned int getGrade() const;
     Bureaucrat(const std::string name, unsigned int grade);
     void setGrade(unsigned int);
     void incrementGrade();
     void decrementGrade();
 };
+std::ostream &operator<<(std::ostream &, const Bureaucrat &);
 #endif
