@@ -6,12 +6,12 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 23:53:37 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/02 01:55:01 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:38:34 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-
+#include "Form.hpp"
 int main()
 {
     try
@@ -59,4 +59,16 @@ int main()
     {
         std::cerr << e.what() << '\n';
     }
+
+    std::cout << "-----------------------------------" << std::endl;
+    try
+    {
+        Bureaucrat a("amounach", 10);
+        Form f();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 }
