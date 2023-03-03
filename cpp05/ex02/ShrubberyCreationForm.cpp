@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:51:00 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/03 21:10:12 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:28:03 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
+    try
+    {
         if (this->getIsSigned())
         {
-            std::cout << "is signed ? " << this->getIsSigned() << std::endl;
             if (executor.getGrade() <= this->getExecuteGrade())
             {
                 std::ofstream file;
@@ -86,4 +87,9 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
         }
         else
             throw GradeTooLowException();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

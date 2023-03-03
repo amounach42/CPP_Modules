@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 00:38:23 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/03 19:14:32 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:56:40 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,25 +97,28 @@ const char *Bureaucrat::GradeTooLowExeption::what() const throw()
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &obj)
 {
-    out << obj.getName() << " ,bureaucrat grade " << obj.getGrade()  << std::endl;
+    out << obj.getName() << " ,bureaucrat grade " << obj.getGrade() << std::endl;
     return (out);
 }
 
 void Bureaucrat::signForm(AForm &f)
 {
-    try
-    {
-        f.beSigned(*this);
-        std::cout << this->getName() << " signed " << f.getName()<< std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << this->getName() << " couldn't sign " << f.getName() << " because " << e.what() << std::endl;
-    }
+    f.beSigned(*this);
+    if (f.getIsSigned())
+        std::cout << this->getName() << " signed " << f.getName() << std::endl;
+    else
+        std::cout << this->getName() << " couldn't sign " << f.getName() << " because " << std::endl;
 }
 
 void Bureaucrat::executeForm(AForm const &form)
 {
-    form.execute(*this);
-    std::cout << this->getName() << " executed " << form.getName() << std::endl;
+    try
+    {
+        form.execute(*this);
+        std::cout << this->getName() << " executed " << form.getName() << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }
