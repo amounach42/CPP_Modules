@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 03:57:17 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/04 09:54:05 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/05 00:27:52 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,9 @@ double ScalarConverter::getDouble()
 
 bool ScalarConverter::isChar(std::string str)
 {
-    int i = 0;
-    while (str[i])
-    {
-        if (!isalpha(str[i]))
-            return (false);
-        i++;
-    }
-    return (true);
+    if (str.length() == 1 && !isdigit(str.c_str()[0]))
+        return true;
+    return false;
 }
 
 bool ScalarConverter::isInt(std::string str)
@@ -82,6 +77,46 @@ bool ScalarConverter::isInt(std::string str)
         i++;
     }
     return (true);
+}
+
+void ScalarConverter::Infinie(std::string av)
+{
+    std::string array[6] = {"nan", "-inf", "+inf", "nanf", "-inff", "+inff"};
+    for (int i = 0; i < 6; i++)
+    {
+        if (av == array[i])
+        {
+            switch (i)
+            {
+            case 0:
+                PrintMessage("impossible", "impossible", "nanf", "nan");
+                exit(0);
+            case 1:
+                PrintMessage("impossible", "impossible", "-inff", "-inf");
+                exit(0);
+            case 2:
+                PrintMessage("impossible", "impossible", "+inff", "+inf");
+                exit(0);
+            case 3:
+                PrintMessage("impossible", "impossible", "nanf", "nan");
+                exit(0);
+            case 4:
+                PrintMessage("impossible", "impossible", "-inff", "-inf");
+                exit(0);
+            case 5:
+                PrintMessage("impossible", "impossible", "+inff", "+inf");
+                exit(0);
+            }
+        }
+    }
+}
+
+void ScalarConverter::PrintMessage(std::string Char, std::string Int, std::string Float, std::string Double)
+{
+    std::cout << "char: " << Char << std::endl;
+    std::cout << "int: " << Int << std::endl;
+    std::cout << "float: " << Float << std::endl;
+    std::cout << "double: " << Double << std::endl;
 }
 
 bool ScalarConverter::isDouble(std::string str)
@@ -161,20 +196,12 @@ void ScalarConverter::displayInt()
 
 void ScalarConverter::displayFloat()
 {
-    float tmp = floatV;
-    if (tmp - floatV == 0)
-        std::cout << "float: "<< floatV << ".0f" << std::endl;
-    else
-        std::cout << "float: "<< floatV << ".f" << std::endl;
+    std::cout << "float: "<< floatV << "f" << std::endl;
 }
 
 void ScalarConverter::displayDouble()
 {
-    float tmp = doubleV;
-    if (tmp - doubleV == 0)
-        std::cout << "double: " << doubleV << ".0" << std::endl;
-    else
-        std::cout << "double: " << doubleV << std::endl;
+    std::cout << "double: " << doubleV << std::endl;
 }
 
 void ScalarConverter::display()

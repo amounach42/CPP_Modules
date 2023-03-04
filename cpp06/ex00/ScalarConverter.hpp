@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 01:46:02 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/04 09:42:48 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/05 00:24:08 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ class ScalarConverter
         static char getCharacter();
         static float getFloat();
         static double getDouble();
+        static void Infinie(std::string av);
+        static void PrintMessage(std::string Char, std::string Int, std::string Float, std::string Double);
 };
 #endif
