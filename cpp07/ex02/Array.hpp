@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:25:59 by amounach          #+#    #+#             */
-/*   Updated: 2023/03/06 16:45:37 by amounach         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:00:33 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ public:
     {
         sizeArray = obj.sizeArray;
         array = new T[obj.sizeArray];
-        for (int i = 0; i <= sizeArray; i++)
+        for (unsigned int i = 0; i <= sizeArray; i++)
             array[i] = obj.array[i];
         this = obj;
     };
@@ -61,14 +61,14 @@ public:
     T &operator [](size_t size)
     {
         if (size >= this->sizeArray)
-            throw std::out_of_range("ivalid");
+            throw std::out_of_range("index out of range !");
        return  this->array[size];
         
     };
     const T &operator [](size_t size) const 
     {
         if (size >= this->sizeArray)
-            throw std::out_of_range("ivalid");
+            throw std::out_of_range("index out of range !");
        return  this->array[size];
         
     };
