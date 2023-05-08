@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/07 20:53:13 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:44:31 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,49 @@ void BitcoinExchange::fillMap(std::string fileName)
     }
 }
 
+std::string ltrim(const std::string &s)
+{
+    size_t start = s.find_first_not_of(" \t");
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+std::string rtrim(const std::string &s)
+{
+    size_t end = s.find_last_not_of(" \t");
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+
+std::string trim(const std::string &s)
+{
+    return rtrim(ltrim(s));
+}
+
+bool parser(std::string line)
+{
+    int i = 0;
+    int pipe = 0;
+
+    while (line[i])
+    {
+        if (line[i] == '|')
+        {
+            pipe++;
+            if (pipe > 1)
+            {
+                std::cout << "Error: input string contain more than one pipe" << std::endl;
+                return (false);
+            }
+        }
+        i++;
+    }
+    if (pipe == 0)
+    {
+        std::cout << "Error: bad input =>" << std::endl;
+        return (false);
+    }
+    return (true);
+}
+
 size_t getPos(std::string line)
 {
     size_t pipe_pos;
@@ -92,7 +135,7 @@ bool isValidFloat(std::string number)
     size_t rfind = number.rfind(".");
     if (rfind == number.length() - 1)
         return false;
-    return (find  == rfind);
+    return (find == rfind);
 }
 
 bool isValidPrice(std::string line)
@@ -101,6 +144,8 @@ bool isValidPrice(std::string line)
 
     pipe_pos = line.find('|');
     std::string price_str = line.substr(pipe_pos + 1);
+    if (price_str.empty())
+        return false;
     isValidFloat(price_str);
     float price = std::atof(price_str.c_str());
     if (!isValidFloat(line))
@@ -152,6 +197,30 @@ bool isValidDate(const std::string &date)
     return true;
 }
 
+bool isValidLine(std::string line)
+{
+    size_t pipe_pos = line.find('|');
+    std::string date_str = trim(line.substr(0, pipe_pos));
+    std::string price_str = trim(line.substr(pipe_pos + 1));
+    for (size_t i = 0; i < date_str.length(); i++)
+    {
+        if (!isdigit(date_str[i]) && date_str[i] != '-')
+        {
+            std::cout << "Error: invalid date" << std::endl;
+            return false;
+        }
+    }
+    for (size_t i = 0; i < price_str.length(); i++)
+    {
+        if (!isdigit(price_str[i]) && price_str[i] != '.')
+        {
+            std::cout << "Error: invalid price" << std::endl;
+            return false;
+        }
+    }
+    return (isValidDate(date_str) && isValidPrice(price_str));
+}
+
 std::string BitcoinExchange::getFileContent(std::string fileName)
 {
     std::string content;
@@ -165,43 +234,19 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
         exit(0);
     }
     std::getline(file, line);
-    while (!file.eof())
+    while (std::getline(file, line))
     {
-        std::getline(file, line);
-        if (isValidPrice(line) && isValidFloat(line))
+        if (!line.empty())
         {
-            std::cout << line << std::endl;
-            is_last = file.eof();
-            content = content + line + (is_last ? "" : "\n");
+            if (isValidLine(line))
+            {
+                std::cout << line << std::endl;
+                is_last = file.eof();
+                content = content + line + (is_last ? "" : "\n");
+            }
+            if (!isValidDate(getDate(line)))
+                std::cout << "Error: bad input => " << line << std::endl;
         }
-        if (!isValidDate(getDate(line)))
-            std::cout << "Error: bad input => " << line << std::endl;
     }
     return (content);
-}
-
-bool BitcoinExchange::parser(std::string line)
-{
-    int i = 0;
-    int pipe = 0;
-
-    while (line[i])
-    {
-        if (line[i] == '|')
-        {
-            pipe++;
-            if (pipe > 1)
-            {
-                std::cout << "Error: input string contain more than one pipe" << std::endl;
-                return (true);
-            }
-        }
-        i++;
-    }
-    if (pipe == 0)
-    {
-        std::cout << "Error: bad input =>" << std::endl;
-        return (true);
-    }
-    return (false);
 }
