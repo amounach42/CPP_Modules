@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/08 19:44:31 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:54:33 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ bool isValidDate(const std::string &date)
     switch (month)
     {
     case 2:
-        days_in_month = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
+        days_in_month = (year % 4 == 0) ? 29 : 28;
         break;
     case 4:
     case 6:
@@ -206,15 +206,15 @@ bool isValidLine(std::string line)
     {
         if (!isdigit(date_str[i]) && date_str[i] != '-')
         {
-            std::cout << "Error: invalid date" << std::endl;
+            std::cout << "Error: The date value contains invalid characters." << std::endl;
             return false;
         }
     }
     for (size_t i = 0; i < price_str.length(); i++)
     {
-        if (!isdigit(price_str[i]) && price_str[i] != '.')
+        if (!isdigit(price_str[i]) && price_str[i] != '-' && price_str[i] != '.')
         {
-            std::cout << "Error: invalid price" << std::endl;
+            std::cout << "Error: The price value contains invalid characters." << std::endl;
             return false;
         }
     }
@@ -240,7 +240,7 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
         {
             if (isValidLine(line))
             {
-                std::cout << line << std::endl;
+                std::cout << trim(line) << " =>" << std::endl;
                 is_last = file.eof();
                 content = content + line + (is_last ? "" : "\n");
             }
