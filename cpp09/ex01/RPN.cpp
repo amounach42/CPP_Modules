@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 19:57:08 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/05 16:35:16 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:17:51 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void RPN::operation(char formula, std::stack<float> &stack)
       stack.pop();
       a = stack.top();
       stack.pop();
+      if (b == 0)
+         {
+            std::cout << "Error: cannot divide by 0\n";
+            exit(0);
+         }
       stack.push(a / b);
    }
 }

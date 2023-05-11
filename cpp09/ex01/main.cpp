@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:59:01 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/05 16:39:05 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:17:53 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int main(int ac, char **av)
         }
         j++;
     }
-    if (stack.size() != 1) 
+    if (stack.size() != 1)
+    {
         std::cout << "Error" << std::endl;
-    std::cout << stack.top();
+        return(0);
+    }
+    std::cout << stack.top() << std::endl;
 }
