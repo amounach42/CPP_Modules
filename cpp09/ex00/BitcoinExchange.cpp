@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/09 11:54:33 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:05:46 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 //     return (*this);
 // }
 
+void checkFileOpen(const std::ifstream &file, const std::string &fileName)
+{
+    if (!file.is_open())
+    {
+        std::cerr << "Error: could not open file." << fileName << std::endl;
+        exit(0);
+    }
+}
+
 void BitcoinExchange::fillMap(std::string fileName)
 {
     std::string line;
@@ -37,11 +46,7 @@ void BitcoinExchange::fillMap(std::string fileName)
     float price;
     size_t comma_pos;
 
-    if (!file.is_open())
-    {
-        std::cerr << "Error: unable to open file" << std::endl;
-        exit(0);
-    }
+    checkFileOpen(file, fileName);
     std::getline(file, line);
     while (!file.eof())
     {
@@ -53,10 +58,10 @@ void BitcoinExchange::fillMap(std::string fileName)
         data[date] = price;
     }
     file.close();
-    for (std::map<std::string, float>::iterator it = data.begin(); it != data.end(); ++it)
-    {
-        std::cout << it->first << ": " << it->second << "\n";
-    }
+    // for (std::map<std::string, float>::iterator it = data.begin(); it != data.end(); ++it)
+    // {
+    //     std::cout << it->first << ": " << it->second << "\n";
+    // }
 }
 
 std::string ltrim(const std::string &s)
@@ -87,18 +92,12 @@ bool parser(std::string line)
         {
             pipe++;
             if (pipe > 1)
-            {
-                std::cout << "Error: input string contain more than one pipe" << std::endl;
                 return (false);
-            }
         }
         i++;
     }
     if (pipe == 0)
-    {
-        std::cout << "Error: bad input =>" << std::endl;
         return (false);
-    }
     return (true);
 }
 
@@ -114,7 +113,7 @@ std::string getDate(std::string line)
 {
     std::string date_str;
 
-    date_str = line.substr(0, getPos(line));
+    date_str = trim(line.substr(0, getPos(line)));
     return (date_str);
 }
 
@@ -124,7 +123,7 @@ float getPrice(std::string line)
     float price;
 
     pipe_pos = getPos(line);
-    std::string price_str = line.substr(pipe_pos + 1);
+    std::string price_str = trim(line.substr(pipe_pos + 1));
     price = std::atof(price_str.c_str());
     return (price);
 }
@@ -133,8 +132,6 @@ bool isValidFloat(std::string number)
 {
     size_t find = number.find(".");
     size_t rfind = number.rfind(".");
-    if (rfind == number.length() - 1)
-        return false;
     return (find == rfind);
 }
 
@@ -143,13 +140,16 @@ bool isValidPrice(std::string line)
     size_t pipe_pos;
 
     pipe_pos = line.find('|');
-    std::string price_str = line.substr(pipe_pos + 1);
+    std::string price_str = trim(line.substr(pipe_pos + 1));
     if (price_str.empty())
         return false;
     isValidFloat(price_str);
     float price = std::atof(price_str.c_str());
-    if (!isValidFloat(line))
-        std::cout << "Error Invalid number >> " << line << std::endl;
+    if (!isValidFloat(price_str))
+    {
+        std::cout << "Error: Invalid number >> " << line << std::endl;
+        return false;
+    }
     if (price < 0)
     {
         std::cerr << "Error: not a positive number." << std::endl;
@@ -163,6 +163,46 @@ bool isValidPrice(std::string line)
     return true;
 }
 
+bool isDigitString(std::string str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (!isdigit(str[i]))
+            return false;
+    }
+    return true;
+}
+
+bool validDate(std::string date)
+{
+    std::string year;
+    std::string month;
+    std::string day;
+    size_t i = 0;
+    size_t pos;
+
+    while ((pos = date.find("-")) != std::string::npos)
+    {
+        if (i == 0)
+        {
+            year = date.substr(0, pos);
+            date.erase(0, pos + 1);
+            i = 1;
+        }
+        else
+        {
+            month = date.substr(0, pos);
+            date.erase(0, pos + 1);
+        }
+    }
+    day = date;
+    if (!isDigitString(year) || !isDigitString(month) || !isDigitString(day))
+        return false;
+    else if (year.length() != 4 || month.length() != 2 || day.length() != 2)
+        return false;
+    return true;
+}
+
 bool isValidDate(const std::string &date)
 {
     int year, month, day;
@@ -171,7 +211,14 @@ bool isValidDate(const std::string &date)
 
     ss >> year >> delimiter1 >> month >> delimiter2 >> day;
     if (ss.fail() || delimiter1 != '-' || delimiter2 != '-')
+    {
+        for (size_t i = 0; i < date.length(); i++)
+        {
+            if (!isdigit(date[i]) && date[i] != '-')
+                return false;
+        }
         return false;
+    }
     if (year < 2009)
         return false;
     if (month < 1 || month > 12)
@@ -202,14 +249,6 @@ bool isValidLine(std::string line)
     size_t pipe_pos = line.find('|');
     std::string date_str = trim(line.substr(0, pipe_pos));
     std::string price_str = trim(line.substr(pipe_pos + 1));
-    for (size_t i = 0; i < date_str.length(); i++)
-    {
-        if (!isdigit(date_str[i]) && date_str[i] != '-')
-        {
-            std::cout << "Error: The date value contains invalid characters." << std::endl;
-            return false;
-        }
-    }
     for (size_t i = 0; i < price_str.length(); i++)
     {
         if (!isdigit(price_str[i]) && price_str[i] != '-' && price_str[i] != '.')
@@ -221,6 +260,22 @@ bool isValidLine(std::string line)
     return (isValidDate(date_str) && isValidPrice(price_str));
 }
 
+void BitcoinExchange::checkKey(std::string date, float price)
+{
+    std::map<std::string, float>::iterator it = data.find(date);
+    if (it == data.end())
+    {
+        it = data.lower_bound(date);
+        if (it == data.begin())
+        {
+            std::cout << "Error: No data found" << std::endl;
+            return ;
+        }
+        it--;
+    }
+        std::cout << "  " << it->second * price<< std::endl;
+}
+
 std::string BitcoinExchange::getFileContent(std::string fileName)
 {
     std::string content;
@@ -228,24 +283,31 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
     bool is_last;
 
     std::ifstream file(fileName);
-    if (!file.is_open())
+    checkFileOpen(file, fileName);
+    std::getline(file, line);
+    if (line != "date | value")
     {
-        std::cerr << "Error: unable to open file" << std::endl;
+        std::cout << "Error\n";
         exit(0);
     }
-    std::getline(file, line);
     while (std::getline(file, line))
     {
         if (!line.empty())
         {
-            if (isValidLine(line))
+            if (!parser(line))
+                std::cout << "Error: bad input => " << line << std::endl;
+            else if (!isValidDate(getDate(line)))
+                std::cout << "Error: bad input => " << line << std::endl;
+            else if (!validDate(getDate(line)))
+                std::cout << "Error: Invalid date" << std::endl;
+            else if (isValidLine(line))
+
             {
-                std::cout << trim(line) << " =>" << std::endl;
+                std::cout << trim(getDate(line)) << " => " << getPrice(line) << " = ";
+                checkKey(getDate(line), getPrice(line));
                 is_last = file.eof();
                 content = content + line + (is_last ? "" : "\n");
             }
-            if (!isValidDate(getDate(line)))
-                std::cout << "Error: bad input => " << line << std::endl;
         }
     }
     return (content);
