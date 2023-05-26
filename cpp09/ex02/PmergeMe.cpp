@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:22:18 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/24 19:42:56 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:18:56 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,9 @@ void PmergeMe::mergeSortVector(std::vector<int> &vector)
     leftArray.assign(begin, mid);
     std::vector<int> rightArray;
     rightArray.assign(mid, end);
-    // for (int i = 0; i < (int)rightArray.size(); i++)
-    //     std::cout << rightArray[i] << std::endl;
-    // std::cout << "----------------" << std::endl;
-    // for (int i = 0; i < (int)leftArray.size(); i++)
-    //     std::cout << leftArray[i] << std::endl;
     mergeSortVector(leftArray);
     mergeSortVector(rightArray);
     mergeVector(rightArray, leftArray, vector);
-    // std::cout << "------result-------" << std::endl;
-    // for (int i = 0; i < (int)vector.size(); i++)
-    //     std::cout << vector[i] << std::endl;
 }
 
 void PmergeMe::mergeSortDeque(std::deque<int> &deque)
@@ -139,18 +131,9 @@ void PmergeMe::mergeSortDeque(std::deque<int> &deque)
     leftArray.assign(begin, mid);
     std::deque<int> rightArray;
     rightArray.assign(mid, end);
-    // for (int i = 0; i < (int)rightArray.size(); i++)
-    //     std::cout << rightArray[i] << std::endl;
-    // std::cout << "----------------" << std::endl;
-    // for (int i = 0; i < (int)leftArray.size(); i++)
-    //     std::cout << leftArray[i] << std::endl;
     mergeSortDeque(leftArray);
     mergeSortDeque(rightArray);
     mergeDeque(rightArray, leftArray, deque);
-
-    // std::cout << "------result-------" << std::endl;
-    // for (int i = 0; i < (int)deque.size(); i++)
-    //     std::cout << deque[i] << std::endl;
 }
 
 void PmergeMe::mergeDeque(std::deque<int> &rightArray, std::deque<int> &leftArray, std::deque<int> &deque)

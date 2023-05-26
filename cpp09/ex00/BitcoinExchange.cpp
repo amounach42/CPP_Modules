@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/12 16:05:46 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:47:15 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void checkFileOpen(const std::ifstream &file, const std::string &fileName)
 {
     if (!file.is_open())
     {
-        std::cerr << "Error: could not open file." << fileName << std::endl;
+        std::cerr << "Error: could not open file: " << fileName << std::endl;
         exit(0);
     }
 }
@@ -58,10 +58,6 @@ void BitcoinExchange::fillMap(std::string fileName)
         data[date] = price;
     }
     file.close();
-    // for (std::map<std::string, float>::iterator it = data.begin(); it != data.end(); ++it)
-    // {
-    //     std::cout << it->first << ": " << it->second << "\n";
-    // }
 }
 
 std::string ltrim(const std::string &s)
@@ -273,7 +269,7 @@ void BitcoinExchange::checkKey(std::string date, float price)
         }
         it--;
     }
-        std::cout << "  " << it->second * price<< std::endl;
+        std::cout << it->second * price<< std::endl;
 }
 
 std::string BitcoinExchange::getFileContent(std::string fileName)

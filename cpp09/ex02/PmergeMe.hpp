@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:20:22 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/24 17:56:43 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:16:18 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <ctime>
 
 class PmergeMe{
     private:
