@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/26 11:47:15 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/27 21:31:15 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 {
     *this = obj;
 }
-
-// BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchage &obj)
-// {
-//     return (*this);
-// }
 
 void checkFileOpen(const std::ifstream &file, const std::string &fileName)
 {
@@ -131,6 +126,18 @@ bool isValidFloat(std::string number)
     return (find == rfind);
 }
 
+bool t(std::string c)
+{
+    for (size_t i = 0; i < c.size(); i++)
+    {
+        if(c[i] == '.')
+            continue;
+        if (c[i] < '0' || c[i] > '9')
+            return(false);
+    }
+    return (true);
+}
+
 bool isValidPrice(std::string line)
 {
     size_t pipe_pos;
@@ -141,9 +148,9 @@ bool isValidPrice(std::string line)
         return false;
     isValidFloat(price_str);
     float price = std::atof(price_str.c_str());
-    if (!isValidFloat(price_str))
+    if (!isValidFloat(price_str) || !t(price_str.c_str()))
     {
-        std::cout << "Error: Invalid number >> " << line << std::endl;
+        std::cout << "Error: Invalid number near >> " << line << std::endl;
         return false;
     }
     if (price < 0)
@@ -203,10 +210,10 @@ bool isValidDate(const std::string &date)
 {
     int year, month, day;
     char delimiter1, delimiter2;
-    std::istringstream ss(date);
+    std::istringstream obj(date);
 
-    ss >> year >> delimiter1 >> month >> delimiter2 >> day;
-    if (ss.fail() || delimiter1 != '-' || delimiter2 != '-')
+    obj >> year >> delimiter1 >> month >> delimiter2 >> day;
+    if (obj.fail() || delimiter1 != '-' || delimiter2 != '-')
     {
         for (size_t i = 0; i < date.length(); i++)
         {
@@ -265,11 +272,11 @@ void BitcoinExchange::checkKey(std::string date, float price)
         if (it == data.begin())
         {
             std::cout << "Error: No data found" << std::endl;
-            return ;
+            return;
         }
         it--;
     }
-        std::cout << it->second * price<< std::endl;
+    std::cout << it->second * price << std::endl;
 }
 
 std::string BitcoinExchange::getFileContent(std::string fileName)
@@ -281,9 +288,11 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
     std::ifstream file(fileName);
     checkFileOpen(file, fileName);
     std::getline(file, line);
+    trim(line);
+
     if (line != "date | value")
     {
-        std::cout << "Error\n";
+        std::cout << "Error: Missing header line\n";
         exit(0);
     }
     while (std::getline(file, line))
@@ -297,7 +306,6 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
             else if (!validDate(getDate(line)))
                 std::cout << "Error: Invalid date" << std::endl;
             else if (isValidLine(line))
-
             {
                 std::cout << trim(getDate(line)) << " => " << getPrice(line) << " = ";
                 checkKey(getDate(line), getPrice(line));
@@ -308,3 +316,16 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
     }
     return (content);
 }
+
+/*
+A map container is a data structure that allows you to store key-value pairs, where each key is unique and maps to a corresponding value. In this case, you could use a map container to store the exchange rates for each date in the database file.
+
+One advantage of using a map container is that it provides constant-time access to individual elements based on their keys. This means you can quickly look up the exchange rate for a specific date without having to iterate through the entire list of dates.
+
+Another advantage is that maps provide a built-in way to sort elements by their keys. This can be useful if you need to iterate through the dates in chronological order, for example.
+
+Overall, using a map container can simplify your code and make it more efficient, especially if you need to perform operations such as searching, sorting, and updating individual elements based on their keys.
+*/
+
+////////////////////////////////////////
+// error -> : 2040-09-18 |
