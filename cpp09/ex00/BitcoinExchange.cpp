@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:09:06 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/27 21:31:15 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:04:27 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ std::string trim(const std::string &s)
     return rtrim(ltrim(s));
 }
 
+
 bool parser(std::string line)
 {
     int i = 0;
@@ -100,6 +101,28 @@ size_t getPos(std::string line)
     return (pipe_pos);
 }
 
+bool isEmptyPrice(std::string line)
+{
+    size_t pipe_pos;
+
+    pipe_pos = getPos(line);
+    std::string price_str = trim(line.substr(pipe_pos + 1));
+    if (price_str.empty())
+        return false;
+    return true;
+}
+
+bool isEmptyDate(std::string line)
+{
+    size_t pipe_pos;
+
+    pipe_pos = getPos(line);
+    std::string date = trim(line.substr(0, pipe_pos));
+    if (date.empty())
+        return false;
+    return true;
+}
+
 std::string getDate(std::string line)
 {
     std::string date_str;
@@ -126,14 +149,14 @@ bool isValidFloat(std::string number)
     return (find == rfind);
 }
 
-bool t(std::string c)
+bool check(std::string str)
 {
-    for (size_t i = 0; i < c.size(); i++)
+    for (size_t i = 0; i < str.size(); i++)
     {
-        if(c[i] == '.')
+        if (str[i] == '.')
             continue;
-        if (c[i] < '0' || c[i] > '9')
-            return(false);
+        if (str[i] < '0' || str[i] > '9')
+            return (false);
     }
     return (true);
 }
@@ -148,7 +171,7 @@ bool isValidPrice(std::string line)
         return false;
     isValidFloat(price_str);
     float price = std::atof(price_str.c_str());
-    if (!isValidFloat(price_str) || !t(price_str.c_str()))
+    if (!isValidFloat(price_str) || !check(price_str.c_str()))
     {
         std::cout << "Error: Invalid number near >> " << line << std::endl;
         return false;
@@ -279,11 +302,10 @@ void BitcoinExchange::checkKey(std::string date, float price)
     std::cout << it->second * price << std::endl;
 }
 
-std::string BitcoinExchange::getFileContent(std::string fileName)
+void BitcoinExchange::getFileContent(std::string fileName)
 {
     std::string content;
     std::string line;
-    bool is_last;
 
     std::ifstream file(fileName);
     checkFileOpen(file, fileName);
@@ -291,14 +313,13 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
     trim(line);
 
     if (line != "date | value")
-    {
         std::cout << "Error: Missing header line\n";
-        exit(0);
-    }
     while (std::getline(file, line))
     {
         if (!line.empty())
         {
+            if (!isEmptyPrice(line))
+                std::cout << "Error: Missing price => " << line << std::endl;
             if (!parser(line))
                 std::cout << "Error: bad input => " << line << std::endl;
             else if (!isValidDate(getDate(line)))
@@ -309,12 +330,9 @@ std::string BitcoinExchange::getFileContent(std::string fileName)
             {
                 std::cout << trim(getDate(line)) << " => " << getPrice(line) << " = ";
                 checkKey(getDate(line), getPrice(line));
-                is_last = file.eof();
-                content = content + line + (is_last ? "" : "\n");
             }
         }
     }
-    return (content);
 }
 
 /*
@@ -326,6 +344,3 @@ Another advantage is that maps provide a built-in way to sort elements by their 
 
 Overall, using a map container can simplify your code and make it more efficient, especially if you need to perform operations such as searching, sorting, and updating individual elements based on their keys.
 */
-
-////////////////////////////////////////
-// error -> : 2040-09-18 |
