@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:23:25 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/25 20:01:29 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:12:06 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int main(int ac, char **av)
     }
     for (int j = 1; j < ac; j++)
     {
+        if (strlen(av[j]) > 10 || atoi(av[j]) > INT_MAX || atoi(av[j]) < 0)
+        {
+            std::cout << "Error: number too large?" << std::endl;
+            exit(0);
+        }
         if (obj.isStringNumeric(av[j]))
         {
             std::cout << "Error" << std::endl;
@@ -54,11 +59,11 @@ int main(int ac, char **av)
     tv = clock() - tv; 
     double timeVector = ((double)tv) / CLOCKS_PER_SEC;
     std::cout
-        << "Time to process range of  " << ac - 1 << " elements with std::vector " << timeVector << " s" << std::endl;
+        << "Time to process range of  " << ac - 1 << " elements with std::vector " << std::fixed << timeVector << " s" << std::endl;
 
     dq = clock();
     obj.mergeSortDeque(deque);
     dq = clock() - dq;
     double timeDeque = ((double)dq) / CLOCKS_PER_SEC;
-    std::cout << "Time to process range of  " << ac - 1 << " elements with std::deque " << timeDeque << " s" << std::endl;
+    std::cout << "Time to process range of  " << ac - 1 << " elements with std::deque " << std::fixed << timeDeque << " s" << std::endl;
 }
