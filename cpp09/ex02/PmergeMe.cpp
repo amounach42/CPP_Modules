@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:22:18 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/25 16:18:56 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:19:22 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void PmergeMe::insertionSortDeque(std::deque<int> &deque)
 {
     for (std::deque<int>::iterator it = deque.begin(); it < deque.end(); it++)
     {
-        std::deque<int>::iterator itr = it;
+        std::deque<int>::iterator itr = it + 1;
         for (; itr > deque.begin(); itr--)
         {
             if (itr != deque.begin() && *itr < *(itr - 1))
@@ -43,8 +43,6 @@ void PmergeMe::insertionSortDeque(std::deque<int> &deque)
             }
         }
     }
-    for (std::deque<int>::iterator it = deque.begin(); it != deque.end(); ++it)
-        std::cout << *it << std::endl;
 }
 
 void PmergeMe::insertionSortVector(std::vector<int> &vector)
@@ -63,8 +61,6 @@ void PmergeMe::insertionSortVector(std::vector<int> &vector)
             }
         }
     }
-    for (std::vector<int>::iterator it = vector.begin(); it != vector.end(); ++it)
-        std::cout << *it << std::endl;
 }
 
 void PmergeMe::mergeVector(std::vector<int> &rightArray, std::vector<int> &leftArray, std::vector<int> &vector)
@@ -114,6 +110,11 @@ void PmergeMe::mergeSortVector(std::vector<int> &vector)
     leftArray.assign(begin, mid);
     std::vector<int> rightArray;
     rightArray.assign(mid, end);
+    if (rightArray.size() <= 15 || leftArray.size() <= 15)
+    {
+        insertionSortVector(vector);
+        return ;
+    }
     mergeSortVector(leftArray);
     mergeSortVector(rightArray);
     mergeVector(rightArray, leftArray, vector);
@@ -123,14 +124,19 @@ void PmergeMe::mergeSortDeque(std::deque<int> &deque)
 {
     std::deque<int>::iterator begin = deque.begin();
     std::deque<int>::iterator end = deque.end();
-
     std::deque<int>::iterator mid = begin + (end - begin) / 2;
+
     std::deque<int> leftArray;
     if ((int)deque.size() <= 1)
         return;
     leftArray.assign(begin, mid);
     std::deque<int> rightArray;
     rightArray.assign(mid, end);
+    if (rightArray.size() <= 15 || leftArray.size() <= 15)
+    {
+        insertionSortDeque(deque);
+        return ;
+    }
     mergeSortDeque(leftArray);
     mergeSortDeque(rightArray);
     mergeDeque(rightArray, leftArray, deque);
