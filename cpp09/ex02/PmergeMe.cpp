@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:22:18 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/31 20:19:22 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:10:17 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ PmergeMe::PmergeMe()
 
 PmergeMe::~PmergeMe()
 {
+}
+
+PmergeMe::PmergeMe(const PmergeMe &obj)
+{
+    (void)obj;
+}
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
+{
+    (void)obj;
+    return *this;
 }
 
 bool PmergeMe::isStringNumeric(std::string numbers)

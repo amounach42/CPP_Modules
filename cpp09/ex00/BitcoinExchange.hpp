@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:28:29 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/12 16:05:59 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:58:11 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ public:
     BitcoinExchange();
     ~BitcoinExchange();
     BitcoinExchange(const BitcoinExchange &obj);
-    // BitcoinExchange &operator=(const BitcoinExchange &obj);
-    std::string getFileContent(std::string fileName);
+    BitcoinExchange &operator=(const BitcoinExchange &obj);
+    void getFileContent(std::string fileName);
     void fillMap(std::string fileName);
-    // bool parser(std::string line);
     void checkKey(std::string date, float price);
 };
 #endif

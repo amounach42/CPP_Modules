@@ -4,7 +4,7 @@ RM = rm -fr
 
 SRC = main.cpp PmergeMe.cpp
 
-CFLAGS = -Wall -Wextra -Werror  -std=c++98
+CFLAGS = -Wall -Wextra -Werror  -std=c++98 -g
 
 CC = c++
 

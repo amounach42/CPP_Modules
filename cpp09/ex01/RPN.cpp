@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 19:57:08 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/11 16:17:51 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:09:24 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ RPN::RPN()
 
 RPN::~RPN()
 {
+}
+
+RPN::RPN(const RPN &obj)
+{
+   (void)obj;
+}
+
+RPN &RPN::operator=(const RPN &obj)
+{
+   (void)obj;
+   return *this;
 }
 
 void RPN::operation(char formula, std::stack<float> &stack)
@@ -66,4 +77,4 @@ void RPN::operation(char formula, std::stack<float> &stack)
          }
       stack.push(a / b);
    }
-}
+} 

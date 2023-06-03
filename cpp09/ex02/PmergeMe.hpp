@@ -6,7 +6,7 @@
 /*   By: amounach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:20:22 by amounach          #+#    #+#             */
-/*   Updated: 2023/05/25 16:16:18 by amounach         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:01:08 by amounach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@
 #include <deque>
 #include <ctime>
 
-class PmergeMe{
-    private:
-    public:
+class PmergeMe
+{
+private:
+public:
     PmergeMe();
     ~PmergeMe();
+    PmergeMe(const PmergeMe &obj);
+    PmergeMe &operator=(const PmergeMe &obj);
     bool isStringNumeric(std::string);
     void insertionSortDeque(std::deque<int> &deque);
     void insertionSortVector(std::vector<int> &vector);
